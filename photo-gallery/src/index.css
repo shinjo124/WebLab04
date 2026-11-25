@@ -1,0 +1,12 @@
+body { font-family: system-ui, sans-serif; margin: 2rem; }
+ul { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr)); gap: 1rem; list-style: none; padding: 0; }
+li button { width: 100%; cursor: pointer; }
+img { display: block; max-width: 100%; height: auto; }
+li img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
+dialog { max-width: min(90vw, 50rem); }
+dialog::backdrop { background: rgb(0 0 0 / 70%); }
+figure { margin: 1rem 0 0; }
+.photo-frame { width: min(80vw, 50rem); aspect-ratio: 4 / 3; }
+.photo-frame img, .photo-skeleton { width: 100%; height: 100%; object-fit: contain; }
+.photo-skeleton { background: #e5e5e5; }
+:focus-visible { outline: 3px solid #155eef; outline-offset: 3px; }
