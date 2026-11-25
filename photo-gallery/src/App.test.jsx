@@ -77,3 +77,18 @@ it('moves focus to the gallery heading after closing a direct photo link', () =>
   expect(document.activeElement).toBe(screen.getByRole('heading', { name: 'Photo Gallery' }))
 })
 
+
+it('keeps the selected category and filtered photos after closing a photo opened from the gallery', () => {
+  setup('/?other=keep')
+  fireEvent.change(screen.getByLabelText('Category'), { target: { value: 'city' } })
+  const gallery = screen.getByRole('list', { name: 'Photos' })
+  fireEvent.click(within(gallery).getAllByRole('button')[0])
+  expect(params().get('photoId')).toBe('5')
+  fireEvent.click(screen.getByRole('button', { name: 'Close photo' }))
+  expect(screen.queryByRole('dialog')).toBeNull()
+  expect(params().has('photoId')).toBe(false)
+  expect(params().get('category')).toBe('city')
+  expect(params().get('other')).toBe('keep')
+  expect(screen.getByLabelText('Category').value).toBe('city')
+  expect(within(gallery).getAllByRole('button')).toHaveLength(4)
+})
