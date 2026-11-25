@@ -7,7 +7,7 @@ const photos = Array.from({ length: 12 }, (_, index) => ({
   id: String(index + 1),
   title: `Sample photo ${index + 1}`,
   category: ['nature', 'city', 'people'][Math.floor(index / 4)],
-  src: `https://picsum.photos/id/${[10, 15, 16, 17, 24, 26, 28, 29, 64, 65, 91, 100][index]}/800/600`,
+  src: `${import.meta.env.BASE_URL}photos/${[10, 15, 16, 17, 24, 26, 28, 29, 64, 65, 91, 100][index]}.jpg`,
 }))
 
 function PhotoDialog({ photo, onClose }) {
