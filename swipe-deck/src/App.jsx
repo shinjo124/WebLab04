@@ -1,1 +1,7 @@
-export default function App() { return <main><h1>Swipe Deck</h1></main> }
+import { useLoaderData } from 'react-router'
+import SwipeDeck from './SwipeDeck.jsx'
+
+export default function App() {
+  const profiles = useLoaderData()
+  return <SwipeDeck profiles={profiles} />
+}
