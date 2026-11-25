@@ -1,5 +1,7 @@
-import { useEffect, useRef } from 'react'
+import { lazy, Suspense, useEffect, useRef } from 'react'
 import { Route, Routes, useSearchParams } from 'react-router'
+
+const PhotoContent = lazy(() => import('./PhotoContent.jsx'))
 
 const photos = Array.from({ length: 12 }, (_, index) => ({
   id: String(index + 1),
@@ -14,7 +16,7 @@ function PhotoDialog({ photo, onClose }) {
   return (
     <dialog ref={dialog} aria-label={photo.title} onCancel={(event) => { event.preventDefault(); onClose() }}>
       <button type="button" onClick={onClose}>Close photo</button>
-      <figure><img src={photo.src} alt={photo.title} width="800" height="600" /><figcaption>{photo.title}</figcaption></figure>
+      <figure><div className="photo-frame"><Suspense fallback={<div className="photo-skeleton" role="status" aria-label="Loading photo" aria-busy="true" />}><PhotoContent photo={photo} /></Suspense></div><figcaption>{photo.title}</figcaption></figure>
     </dialog>
   )
 }
