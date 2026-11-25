@@ -1,5 +1,6 @@
 import { useMemo } from 'react'
 import { Link, Route, Routes, useParams } from 'react-router'
+import AppealForm from './AppealForm.jsx'
 
 const dossiers = {
   himass: { name: 'Himass', comparisons: [{ label: 'Suspension', proposedDays: 30, referenceDays: 10 }] },
@@ -24,6 +25,7 @@ function Dossier() {
         <thead><tr><th scope="col">Measure</th><th scope="col">Proposed days</th><th scope="col">Reference days</th><th scope="col">Difference</th></tr></thead>
         <tbody>{matrix.map((row) => <tr key={row.label}><th scope="row">{row.label}</th><td>{row.proposedDays}</td><td>{row.referenceDays}</td><td>{row.difference > 0 ? `+${row.difference}` : row.difference}</td></tr>)}</tbody>
       </table>
+      <AppealForm key={playerID} initialDays={dossier.comparisons[0].proposedDays} />
     </main>
   )
 }
