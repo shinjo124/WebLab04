@@ -13,3 +13,13 @@ Copy the repository-root `.env.example` to `.env` and set `MONGODB_URI` to your 
 The frontend loads profiles from the API through the Vite proxy on port 3000. Like scores +10; Pass and Super score -5. Undo restores the most recent card. Swipes are saved through the API before advancing. The frontend history and score are held in memory and reset on reload. Undo restores the card locally; it does not delete the saved swipe record.
 
 Focus the deck and use Left, Right, Up, or Backspace to undo. Drag at least 50 pixels left, right, or up on the card to swipe. Save failures leave the current card available for retry.
+
+To run the MongoDB integration tests on a local server at `127.0.0.1:27017`, use PowerShell:
+
+```powershell
+$env:MONGO_INTEGRATION = '1'
+npx vitest run server/mongo.integration.test.js
+Remove-Item Env:MONGO_INTEGRATION
+```
+
+The tests seed a uniquely named temporary database, exercise the HTTP API and stored swipe, and remove that test database afterward. They are skipped during ordinary test runs unless `MONGO_INTEGRATION=1` is set.
