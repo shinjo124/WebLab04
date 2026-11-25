@@ -8,6 +8,7 @@ const photos = Array.from({ length: 12 }, (_, index) => ({
   title: `Sample photo ${index + 1}`,
   category: ['nature', 'city', 'people'][Math.floor(index / 4)],
   src: `${import.meta.env.BASE_URL}photos/${[10, 15, 16, 17, 24, 26, 28, 29, 64, 65, 91, 100][index]}.jpg`,
+  thumbnail: `${import.meta.env.BASE_URL}photos/${[10, 15, 16, 17, 24, 26, 28, 29, 64, 65, 91, 100][index]}-600.webp`,
 }))
 
 function PhotoDialog({ photo, onClose }) {
@@ -57,10 +58,10 @@ function Gallery() {
       {category && visiblePhotos.length === 0 && <p>No photos in this category.</p>}
       {photoId && !selectedPhoto && <p role="status">Photo not found.</p>}
       <ul aria-label="Photos">
-        {visiblePhotos.map((photo) => (
+        {visiblePhotos.map((photo, index) => (
           <li key={photo.id}>
             <button type="button" onClick={(event) => { opener.current = event.currentTarget; updateParam('photoId', photo.id) }}>
-              <img src={photo.src} alt="" width="800" height="600" loading="lazy" />
+              <img src={photo.thumbnail} srcSet={`${photo.thumbnail} 600w, ${photo.src} 800w`} sizes="(max-width: 600px) calc(100vw - 5rem), (max-width: 900px) 50vw, 25vw" alt="" width="800" height="600" loading={index === 0 ? "eager" : "lazy"} fetchPriority={index === 0 ? "high" : "auto"} />
               <span>{photo.title}</span>
             </button>
           </li>
